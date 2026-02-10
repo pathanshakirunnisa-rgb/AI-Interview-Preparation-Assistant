@@ -3,31 +3,36 @@ import streamlit as st
 st.title("AI Interview Preparation Assistant")
 st.write("Prepare for your interviews using AI assistance")
 
-role = st.text_input("Enter Job Role")
-
-# Store questions and answers in session_state
+# Store role, questions, and answers in session_state
+if "role" not in st.session_state:
+    st.session_state.role = ""
 if "questions" not in st.session_state:
     st.session_state.questions = []
 if "answers" not in st.session_state:
     st.session_state.answers = []
 
-if st.button("Generate Questions"):
+# Role input
+st.session_state.role = st.text_input("Enter Job Role", st.session_state.role)
 
-    if "data" in role.lower():
+# Generate questions
+if st.button("Generate Questions"):
+    role_lower = st.session_state.role.lower()
+    
+    if "data" in role_lower:
         st.session_state.questions = [
             "What is machine learning?",
             "Explain supervised vs unsupervised learning.",
             "What is overfitting?"
         ]
 
-    elif "web" in role.lower():
+    elif "web" in role_lower:
         st.session_state.questions = [
             "What is HTML, CSS, and JavaScript?",
             "Explain REST APIs.",
             "What is responsive design?"
         ]
 
-    elif "python" in role.lower():
+    elif "python" in role_lower:
         st.session_state.questions = [
             "Explain Python data types.",
             "What are Python decorators?",
@@ -36,12 +41,12 @@ if st.button("Generate Questions"):
 
     else:
         st.session_state.questions = [
-            f"What is your experience in {role}?",
-            f"What are the important skills required for {role}?",
-            f"Explain one project related to {role}"
+            f"What is your experience in {st.session_state.role}?",
+            f"What are the important skills required for {st.session_state.role}?",
+            f"Explain one project related to {st.session_state.role}"
         ]
 
-    # Reset previous answers
+    # Reset answers
     st.session_state.answers = [""] * len(st.session_state.questions)
 
 # Display questions and collect answers
