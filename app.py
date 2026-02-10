@@ -44,16 +44,16 @@ if st.button("Generate Questions"):
         ans = st.text_area(f"Your Answer {i+1}")
         answers.append(ans)
 
+    # FIXED INDENTATION HERE
     if st.button("Submit Answers"):
-    st.subheader("Answer Scores")
+        st.subheader("Answer Scores")
 
-    keywords = ["python", "project", "experience", "skills"]
+        keywords = ["python", "project", "experience", "skills"]
 
-    for i, ans in enumerate(answers):
-        word_score = len(ans.split())
-        keyword_score = sum([1 for k in keywords if k in ans.lower()])
+        for i, ans in enumerate(answers):
+            word_score = len(ans.split())
+            keyword_score = sum([1 for k in keywords if k in ans.lower()])
 
-        final_score = word_score + (keyword_score * 5)
+            final_score = word_score + (keyword_score * 5)
 
-        st.write(f"Answer {i+1} Score: {final_score}")
-
+            st.write(f"Answer {i+1} Score: {final_score}")
